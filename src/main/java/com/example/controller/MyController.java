@@ -52,7 +52,7 @@ public class MyController {
             while (rs.next()) {
                 output.add("Read from DB: " + rs.getTimestamp("tick"));
             }
-            model.put("back", "/insert");
+
             model.put("records", output);
         return "results";
         } catch (Exception e) {
