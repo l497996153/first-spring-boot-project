@@ -39,7 +39,7 @@ import java.util.Map;
 public class Main {
 
   @Value("${spring.datasource.url}")
-  private String dbUrl;
+  private String dbUrl = "postgres://snhfkspyonnaec:c114bb264a12157597ccdb3e1eaf8fc02d767918756aada0185082096c0b00d6@ec2-54-90-13-87.compute-1.amazonaws.com:5432/dfvc4jlk59smbb";
 
   @Autowired
   private DataSource dataSource;
@@ -48,7 +48,7 @@ public class Main {
     SpringApplication.run(Main.class, args);
   }
 
-  @RequestMapping("/index")
+  @RequestMapping("/")
   String index() {
     return "index";
   }
