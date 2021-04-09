@@ -43,6 +43,6 @@ public class Data {
     }
 
     public String toString(){
-        return this.firstname + "," + this.lastname + "," + this.description;
+        return this.getId() + "," + this.getFirst() + "," + this.getLast() + "," + this.getDes();
     }
 }

@@ -57,7 +57,7 @@ public class MyController {
             }
             model.put("back", "/search");
             model.put("records", output);
-        return "search-results";
+            return "search-results";
         } catch (Exception e) {
             model.put("back", "/search");
             model.put("message", e.getMessage());
@@ -78,7 +78,7 @@ public class MyController {
             Long output = data.getId();
             model.put("back", "/insert");
             model.put("id", output);
-        return "insert-results";
+            return "insert-results";
         } catch (Exception e) {
             model.put("back", "/insert");
             model.put("message", e.getMessage());
