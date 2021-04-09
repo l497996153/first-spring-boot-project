@@ -48,9 +48,19 @@ public class Main {
     SpringApplication.run(Main.class, args);
   }
 
-  @RequestMapping("/")
+  @RequestMapping("/index")
   String index() {
     return "index";
+  }
+
+  @RequestMapping("/search")
+  String search() {
+    return "search";
+  }
+
+  @RequestMapping("/insert")
+  String insert() {
+    return "insert";
   }
 
   @RequestMapping("/db")

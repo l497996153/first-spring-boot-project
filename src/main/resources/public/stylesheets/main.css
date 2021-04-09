@@ -1,4 +1,5 @@
 .jumbotron {
+  height: 400px;
   background: #532F8C;
   color: white;
   padding-bottom: 80px; }
@@ -13,15 +14,16 @@
     margin: 1em auto 2em; }
   .navbar + .jumbotron {
     margin-top: -20px; }
-  .jumbotron .lang-logo {
-    display: block;
-    background: #B01302;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    border: 2px solid white; }
-    .jumbotron .lang-logo img {
-      max-width: 100%; }
-
+.vertical-center {
+  width: 100%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#searchBtn{
+  transform: translateX(140%);
+}
+label, label{
+  display: inline-block;
+}

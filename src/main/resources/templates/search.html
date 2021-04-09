@@ -9,8 +9,12 @@
     <div class = "vertical-center">
         <div class="jumbotron text-center">
             <div class="container">
-                <h1>Demo</h1>
-                <P>This is a demo application that you can insert to and search from database</P>
+                <h1>Data searching</h1>
+                <form action="/result" method="POST">
+                    <label for="caseId">Case ID:</label>
+                    <input type="text" id="caseId" name="caseId" class="cred" placeholder="enter case ID..." required/>
+                    <input type="submit" class="btn btn-primary" value="Search" />
+                </form>
             </div>
         </div>
     </div>
