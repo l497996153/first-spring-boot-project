@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'results')}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'search-results')}">
 
 <body>
 
 <div class="container">
   <h1>Database Output</h1>
-  <ul th:each="record : ${records}">
+  <ul th:each="id : ${id}">
     <li th:text="${record}"/>
   </ul>
 </div>

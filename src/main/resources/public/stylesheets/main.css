@@ -24,6 +24,10 @@
 #searchBtn{
   transform: translateX(140%);
 }
-label, label{
-  display: inline-block;
+.black{
+  color:black;
+}
+input[type=number]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
 }

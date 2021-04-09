@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.data.Data;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class MyController {
 
     @Value("${spring.datasource.url}")
-    private String dbUrl="postgres://snhfkspyonnaec:c114bb264a12157597ccdb3e1eaf8fc02d767918756aada0185082096c0b00d6@ec2-54-90-13-87.compute-1.amazonaws.com:5432/dfvc4jlk59smbb";
+    private String dbUrl;
 
     @Autowired
     private DataSource dataSource;
@@ -40,25 +41,47 @@ public class MyController {
         return "insert";
     }
 
-    @RequestMapping("/results")
-    String results(Map<String, Object> model) {
+    @RequestMapping("/search-results")
+    String searchResults(Map<String, Object> model, int caseId) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-            stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-            ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL," + 
+                                                                "firstname TEXT NOT NULL"+
+                                                                "lastname TEXT NOT NULL"+
+                                                                "description TEXT NOT NULL)");
+            ResultSet rs = stmt.executeQuery("SELECT *  FROM case where caseId = " + caseId );
 
             ArrayList<String> output = new ArrayList<String>();
             while (rs.next()) {
                 output.add("Read from DB: " + rs.getTimestamp("tick"));
             }
-            model.put("back", "/insert");
+            model.put("back", "/search");
             model.put("records", output);
-        return "results";
+        return "search-results";
         } catch (Exception e) {
-            //model.put("back", "/insert");
+            model.put("back", "/search");
             model.put("message", e.getMessage());
-            //model.put("message", "Hello world");
+            return "error";
+        }
+    }
+
+    @RequestMapping("/insert-results")
+    String insertResults(Map<String, Object> model, Data data) {
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL," + 
+                                                                "firstname TEXT NOT NULL"+
+                                                                "lastname TEXT NOT NULL"+
+                                                                "description TEXT NOT NULL)");
+            stmt.executeUpdate("INSERT INTO ticks VALUES ("+data.toString()+")");
+
+            Long output = data.getId();
+            model.put("back", "/insert");
+            model.put("id", output);
+        return "insert-results";
+        } catch (Exception e) {
+            model.put("back", "/insert");
+            model.put("message", e.getMessage());
             return "error";
         }
     }
