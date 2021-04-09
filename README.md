@@ -1,11 +1,5 @@
 # java-getting-started
 
-A barebones Java app, which can easily be deployed to Heroku.
-
-This application supports the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
 ## Running Locally
 
 Make sure you have Java and Maven installed.  Also, install the [Heroku CLI](https://cli.heroku.com/).
@@ -32,9 +26,3 @@ $ heroku create
 $ git push heroku main
 $ heroku open
 ```
-
-## Documentation
-
-For more information about using Java on Heroku, see these Dev Center articles:
-
-- [Java on Heroku](https://devcenter.heroku.com/categories/java)

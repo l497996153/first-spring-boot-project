@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'search')}">
+<head>
+    <title>Data searching</title>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+</head>
+<body>
+    <div class = "vertical-center">
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>Data searching</h1>
+                <form th:action="@{/search-results}" th:object="${id} method="POST">
+                    <label for="caseId">Case ID:</label>
+                    <input type="number" th:field="*{id}" id="caseId" name="caseId" class="black" placeholder="enter case ID..." required/>
+                    <input type="submit" class="btn btn-primary" value="Search" />
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
