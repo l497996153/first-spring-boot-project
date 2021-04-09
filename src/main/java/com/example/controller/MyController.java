@@ -20,7 +20,7 @@ import java.util.Map;
 public class MyController {
 
     @Value("${spring.datasource.url}")
-    private String dbUrl = "postgres://snhfkspyonnaec:c114bb264a12157597ccdb3e1eaf8fc02d767918756aada0185082096c0b00d6@ec2-54-90-13-87.compute-1.amazonaws.com:5432/dfvc4jlk59smbb";
+    private String dbUrl;
 
     @Autowired
     private DataSource dataSource;
@@ -40,35 +40,38 @@ public class MyController {
         return "insert";
     }
 
-    @RequestMapping("/db")
-    String db(Map<String, Object> model) {
+    @RequestMapping("/results")
+    String results(Map<String, Object> model) {
         try (Connection connection = dataSource.getConnection()) {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-        stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-        ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+            stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+            ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
 
-        ArrayList<String> output = new ArrayList<String>();
-        while (rs.next()) {
-            output.add("Read from DB: " + rs.getTimestamp("tick"));
-        }
+            ArrayList<String> output = new ArrayList<String>();
+            while (rs.next()) {
+                output.add("Read from DB: " + rs.getTimestamp("tick"));
+            }
 
-        model.put("records", output);
-        return "db";
+            model.put("records", output);
+        return "results";
         } catch (Exception e) {
-        model.put("message", e.getMessage());
-        return "error";
+            //model.put("back", "/insert");
+            model.put("message", e.getMessage());
+            //model.put("message", "Hello world");
+            return "error";
         }
     }
 
     @Bean
     public DataSource dataSource() throws SQLException {
         if (dbUrl == null || dbUrl.isEmpty()) {
-        return new HikariDataSource();
-        } else {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(dbUrl);
-        return new HikariDataSource(config);
+            return new HikariDataSource();
+        }
+        else {
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(dbUrl);
+            return new HikariDataSource(config);
         }
     }
 }
