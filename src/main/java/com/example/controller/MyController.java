@@ -65,7 +65,7 @@ public class MyController {
                                                                  "PRIMARY KEY(caseId));");
             stmt.executeUpdate("INSERT INTO cases VALUES (1,'a','b','c');");
             int id = 1;
-            ResultSet rs1 = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
+            ResultSet rs1 = stmt.executeQuery("SELECT * FROM cases;");
             //rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
             /*output.add("Read from DB: " + rs1.getInt("caseId") + " " + rs1.getString("firstname"));*/
             model.put("records", output);
