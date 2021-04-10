@@ -87,7 +87,7 @@ public class MyController {
     public String insertResults(Data data){
         return "insertResults";
     }*/
-    @RequestMapping("/results-insert")
+    @RequestMapping("/insertResults")
     String insertResults(Map<String, Object> model) {
         int id=0;
         try (Connection connection = dataSource.getConnection()) {
