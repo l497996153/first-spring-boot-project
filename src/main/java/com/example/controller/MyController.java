@@ -41,12 +41,11 @@ public class MyController {
 
     @RequestMapping("/insert")
     String insert(Map<String, Object> model) {
-        Data data = new Data();
-        model.put("data",data);
+        model.put("data",new Data());
         return "insert";
     }
 
-    @RequestMapping(value = "/searchResults", method = RequestMethod.POST)
+    @RequestMapping(value = "/search-results", method = RequestMethod.POST)
     String searchResults(Map<String, Object> model, @RequestParam("caseId") int id) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
@@ -68,7 +67,7 @@ public class MyController {
                 output.add("Description: " + rs.getString("description"));
             }
             model.put("records", output);
-            return "searchResults";
+            return "search-results";
         } catch (Exception e) {
             model.put("message", e.getMessage());
             return "error";
