@@ -62,8 +62,8 @@ public class MyController {
                                                                 "firstname varchar(15) NOT NULL,"+
                                                                 "lastname varchar(15) NOT NULL,"+
                                                                 "description varchar(255) NOT NULL)");
-            stmt.executeUpdate("INSERT INTO cases (firstname,lastname,description) VALUES ('a','b','c')");
-            /*rs = stmt.executeQuery("SELECT *  FROM case where caseId = 1");
+            /*stmt.executeUpdate("INSERT INTO cases (firstname,lastname,description) VALUES ('a','b','c')");
+            rs = stmt.executeQuery("SELECT *  FROM case where caseId = 1");
             output.add("Read from DB: " + rs.getTimestamp("caseId") + " " + rs.getString("firstname"));*/
             model.put("records", output);
             return "searchResults";
