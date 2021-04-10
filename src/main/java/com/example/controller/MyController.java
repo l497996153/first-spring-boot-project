@@ -48,7 +48,7 @@ public class MyController {
 
     @RequestMapping("/searchResults")
     String searchResults(Map<String, Object> model) {
-        int id=1;
+        int id=0;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId INT NOT NULL UNIQUE," + 
@@ -56,18 +56,19 @@ public class MyController {
                                                                  "lastname VARCHAR(15) NOT NULL," +
                                                                  "description VARCHAR(255) NOT NULL," +
                                                                  "PRIMARY KEY(caseId));");
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM cases;");
-            while (rs.next()) {
-                id = rs.getInt("total")+1;
-            }
-            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'ab','bc','cd');");
-            rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
             ArrayList<String> output = new ArrayList<String>();
-            while (rs.next()) {
-                output.add("Case ID: " + rs.getInt("caseId"));
-                output.add("Firstname: " + rs.getString("firstname"));
-                output.add("Lastname: " + rs.getString("lastname"));
-                output.add("Description: " + rs.getString("description"));
+            
+            if (!rs.first()) {
+                // handle empty set: throw error or return
+                output.add("No such case id");
+            }{
+                while (rs.next()) {
+                    output.add("Case ID: " + rs.getInt("caseId"));
+                    output.add("Firstname: " + rs.getString("firstname"));
+                    output.add("Lastname: " + rs.getString("lastname"));
+                    output.add("Description: " + rs.getString("description"));
+                }
             }
             model.put("records", output);
             return "searchResults";
