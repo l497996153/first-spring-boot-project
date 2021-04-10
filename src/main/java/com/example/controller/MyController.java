@@ -3,16 +3,12 @@ package com.example.controller;
 import com.example.data.Data;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -78,17 +74,8 @@ public class MyController {
         }
     }
 
-    /*@GetMapping("/insertResults")
-    public String sendForm(Data data) {
-        return "insertResults";
-    }
-
-    @PostMapping("/insertResults")
-    public String insertResults(Data data){
-        return "insertResults";
-    }*/
-    @RequestMapping("/insertResults")
-    String insertResults(Map<String, Object> model) {
+    @RequestMapping(value = "insertResults", method = RequestMethod.POST)
+    String insertResults(Map<String, Object> model, Data data) {
         int id=0;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
