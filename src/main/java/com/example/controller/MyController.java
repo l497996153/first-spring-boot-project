@@ -74,7 +74,7 @@ public class MyController {
         }
     }
 
-    @RequestMapping(value = "/insertResults", method = RequestMethod.POST)
+    @RequestMapping(value = "/insert-results", method = RequestMethod.POST)
     String insertResults(Map<String, Object> model, @ModelAttribute(value="data") Data data) {
         int id=0;
         try (Connection connection = dataSource.getConnection()) {
@@ -90,7 +90,7 @@ public class MyController {
             }
             stmt.executeUpdate("INSERT INTO cases VALUES ("+id+","+data.toString()+");");
             model.put("id", id);
-            return "insertResults";
+            return "insert-results";
         } catch (Exception e) {
             model.put("message", e.getMessage());
             return "error";

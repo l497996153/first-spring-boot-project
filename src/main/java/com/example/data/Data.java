@@ -5,31 +5,34 @@ public class Data {
     private String lastname;
     private String description;
 
-    public String getFirst() {
+    public Data() {
+    }
+
+    public String getFirstname() {
       return this.firstname;
     }
   
-    public void setFirst(String firstname) {
+    public void setFirstname(String firstname) {
       this.firstname = firstname;
     }
   
-    public String getLast() {
+    public String getLastname() {
         return this.lastname;
     }
 
-    public void setLast(String lastname) {
+    public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
-    public String getDes() {
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDes(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
     public String toString(){
-        return "'"+this.getFirst() + "','" + this.getLast() + "','" + this.getDes()+"'";
+        return "'"+this.getFirstname() + "','" + this.getLastname() + "','" + this.getDescription()+"'";
     }
 }
