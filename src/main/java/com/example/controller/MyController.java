@@ -88,7 +88,7 @@ public class MyController {
             while (rs.next()) {
                 id = rs.getInt("total")+1;
             }
-            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+","+data.toString());
+            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+","+data.toString()+");");
             model.put("id", id);
             return "insertResults";
         } catch (Exception e) {
