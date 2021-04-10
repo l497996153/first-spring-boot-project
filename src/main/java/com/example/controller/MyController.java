@@ -63,8 +63,8 @@ public class MyController {
                                                                  "lastname VARCHAR(15) NOT NULL," +
                                                                  "description VARCHAR(255) NOT NULL," +
                                                                  "PRIMARY KEY(caseId));");
-            rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM cases;");
-            int id = rs.getInt("total")+1;
+            //rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM cases;");
+            //int id = rs.getInt("total")+1;
             //stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'a','b','c');");
             
             //ResultSet rs1 = stmt.executeQuery("SELECT caseId,firstname FROM cases;");
