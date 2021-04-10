@@ -58,11 +58,11 @@ public class MyController {
             while (rs.next()) {
                 output.add("Read from DB: " + rs.getTimestamp("tick"));
             }
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
-                                                                "firstname VARCHAR(15) NOT NULL,"+
-                                                                "lastname VARCHAR(15) NOT NULL,"+
-                                                                "description VARCHAR(100) NOT NULL)");
-            stmt.executeUpdate("INSERT INTO cases VALUES (1,'a','b','c')");
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId int PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT," + 
+                                                                "firstname varchar(15) NOT NULL,"+
+                                                                "lastname varchar(15) NOT NULL,"+
+                                                                "description varchar(255) NOT NULL)");
+            stmt.executeUpdate("INSERT INTO cases (firstname,lastname,description) VALUES ('a','b','c')");
             /*rs = stmt.executeQuery("SELECT *  FROM case where caseId = 1");
             output.add("Read from DB: " + rs.getTimestamp("caseId") + " " + rs.getString("firstname"));*/
             model.put("records", output);
