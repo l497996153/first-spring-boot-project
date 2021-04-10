@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -42,9 +43,8 @@ public class MyController {
         return "insert";
     }
 
-    @RequestMapping("/searchResults")
-    String searchResults(Map<String, Object> model) {
-        int id=11;
+    @RequestMapping(value = "/searchResults", method = RequestMethod.POST)
+    String searchResults(Map<String, Object> model, @RequestParam("caseId") int id) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId INT NOT NULL UNIQUE," + 
@@ -74,7 +74,7 @@ public class MyController {
         }
     }
 
-    @RequestMapping(value = "insertResults", method = RequestMethod.POST)
+    @RequestMapping(value = "/insertResults", method = RequestMethod.POST)
     String insertResults(Map<String, Object> model, Data data) {
         int id=0;
         try (Connection connection = dataSource.getConnection()) {
