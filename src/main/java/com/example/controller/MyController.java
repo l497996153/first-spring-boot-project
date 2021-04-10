@@ -48,7 +48,7 @@ public class MyController {
 
     @RequestMapping("/searchResults")
     String searchResults(Map<String, Object> model) {
-        int id=0;
+        int id=1;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId INT NOT NULL UNIQUE," + 
@@ -88,7 +88,7 @@ public class MyController {
         return "insertResults";
     }*/
     @RequestMapping("/results-insert")
-    String insertResults(Map<String, Object> model, Data data) {
+    String insertResults(Map<String, Object> model) {
         int id=0;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
