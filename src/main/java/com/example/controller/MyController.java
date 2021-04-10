@@ -45,7 +45,7 @@ public class MyController {
         data.setFirst("First");
         data.setLast("Last");
         data.setDes("Des");
-        model.put("Data",data);
+        model.put("data",data);
         return "insert";
     }
 
@@ -81,7 +81,7 @@ public class MyController {
     }
 
     @RequestMapping(value = "/insertResults", method = RequestMethod.POST)
-    String insertResults(Map<String, Object> model, @ModelAttribute Data data) {
+    String insertResults(Map<String, Object> model, @ModelAttribute(value="data") Data data) {
         int id=0;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
