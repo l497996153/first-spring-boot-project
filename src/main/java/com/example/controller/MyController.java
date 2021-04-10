@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -41,8 +42,8 @@ public class MyController {
         return "insert";
     }
 
-    @RequestMapping("/search-results")
-    String searchResults(Map<String, Object> model, int caseId) {
+    @RequestMapping("/results-search")
+    String searchResults(Map<String, Object> model,  @RequestParam("caseId") Integer caseId) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
@@ -57,7 +58,7 @@ public class MyController {
             }
             model.put("back", "/search");
             model.put("records", output);
-            return "search-results";
+            return "/results-search";
         } catch (Exception e) {
             model.put("back", "/search");
             model.put("message", e.getMessage());
@@ -65,7 +66,7 @@ public class MyController {
         }
     }
 
-    @RequestMapping("/insert-results")
+    @RequestMapping("/results-insert")
     String insertResults(Map<String, Object> model, Data data) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
@@ -78,7 +79,7 @@ public class MyController {
             Integer output = data.getId();
             model.put("back", "/insert");
             model.put("id", output);
-            return "insert-results";
+            return "/results-insert";
         } catch (Exception e) {
             model.put("back", "/insert");
             model.put("message", e.getMessage());

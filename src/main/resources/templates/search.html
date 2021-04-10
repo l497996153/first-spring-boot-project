@@ -10,9 +10,9 @@
         <div class="jumbotron text-center">
             <div class="container">
                 <h1>Data searching</h1>
-                <form th:action="@{/search-results}" th:object="${id} method="POST">
+                <form th:action="@{/search-results}" th:object="${caseId} method="POST">
                     <label for="caseId">Case ID:</label>
-                    <input type="number" th:field="*{id}" id="caseId" name="caseId" class="black" placeholder="enter case ID..." required/>
+                    <input type="number" th:firld="*{id}" id="caseId" name="caseId" class="black" placeholder="enter case ID..." required/>
                     <input type="submit" class="btn btn-primary" value="Search" />
                 </form>
             </div>
