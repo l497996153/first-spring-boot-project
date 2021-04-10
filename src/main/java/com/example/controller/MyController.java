@@ -58,7 +58,7 @@ public class MyController {
             while (rs.next()) {
                 output.add("Read from DB: " + rs.getTimestamp("tick"));
             }
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId INT NOT NULL UNIQUE AUTO_INCREMENT," + 
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId INT NOT NULL UNIQUE," + 
                                                                  "firstname VARCHAR(15) NOT NULL,"+
                                                                  "lastname VARCHAR(15) NOT NULL," +
                                                                  "description VARCHAR(255) NOT NULL," +
