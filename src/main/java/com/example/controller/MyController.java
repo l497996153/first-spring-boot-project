@@ -48,31 +48,26 @@ public class MyController {
 
     @RequestMapping("/searchResults")
     String searchResults(Map<String, Object> model) {
+        int id=0;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-            stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-            ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-
-            ArrayList<String> output = new ArrayList<String>();
-            while (rs.next()) {
-                output.add("Read from DB: " + rs.getTimestamp("tick"));
-            }
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId INT NOT NULL UNIQUE," + 
                                                                  "firstname VARCHAR(15) NOT NULL,"+
                                                                  "lastname VARCHAR(15) NOT NULL," +
                                                                  "description VARCHAR(255) NOT NULL," +
                                                                  "PRIMARY KEY(caseId));");
-            rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM cases;");
-            int id=0;
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM cases;");
             while (rs.next()) {
                 id = rs.getInt("total")+1;
             }
-            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'a','b','c');");
-            
+            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'ab','bc','cd');");
             rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
+            ArrayList<String> output = new ArrayList<String>();
             while (rs.next()) {
-                output.add("Read from DB: " + rs.getInt("caseId") + " " + rs.getString("firstname"));
+                output.add("Case ID: " + rs.getInt("caseId"));
+                output.add("Firstname" + rs.getString("firstname"));
+                output.add("Lastname" + rs.getString("lastname"));
+                output.add("Description" + rs.getString("description"));
             }
             model.put("records", output);
             return "searchResults";
