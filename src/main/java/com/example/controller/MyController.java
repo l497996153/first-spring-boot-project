@@ -42,9 +42,6 @@ public class MyController {
     @RequestMapping("/insert")
     String insert(Map<String, Object> model) {
         Data data = new Data();
-        data.setFirst("First");
-        data.setLast("Last");
-        data.setDes("Des");
         model.put("data",data);
         return "insert";
     }
@@ -60,7 +57,6 @@ public class MyController {
                                                                  "PRIMARY KEY(caseId));");
             ResultSet rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
             ArrayList<String> output = new ArrayList<String>();
-            
             if (!rs.next()) {
                 // handle empty set: throw error or return
                 output.add("No such case id");
@@ -74,7 +70,6 @@ public class MyController {
             model.put("records", output);
             return "searchResults";
         } catch (Exception e) {
-            //model.put("back", "/search");
             model.put("message", e.getMessage());
             return "error";
         }
@@ -98,7 +93,6 @@ public class MyController {
             model.put("id", id);
             return "insertResults";
         } catch (Exception e) {
-            //model.put("back", "/search");
             model.put("message", e.getMessage());
             return "error";
         }
