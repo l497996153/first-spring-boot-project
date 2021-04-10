@@ -10,7 +10,7 @@
         <div class="jumbotron text-center">
             <div class="container">
                 <h1>Data inserting</h1>
-                <form th:action="@{/insertResults}" th:object="${data}" method="POST">
+                <form th:action="@{/insertResults}" th:object="${Data}" method="POST">
                     <label for="first">First Name:</label>
                     <input type="text" id="firstname" name="firstname" class="black" placeholder="enter firstname..." th:field="*{firstname}" required/></br>
                     <label for="last">Last Name:</label>
