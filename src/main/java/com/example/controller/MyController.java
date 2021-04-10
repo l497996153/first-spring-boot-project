@@ -65,9 +65,9 @@ public class MyController {
             ArrayList<String> output = new ArrayList<String>();
             while (rs.next()) {
                 output.add("Case ID: " + rs.getInt("caseId"));
-                output.add("Firstname" + rs.getString("firstname"));
-                output.add("Lastname" + rs.getString("lastname"));
-                output.add("Description" + rs.getString("description"));
+                output.add("Firstname: " + rs.getString("firstname"));
+                output.add("Lastname: " + rs.getString("lastname"));
+                output.add("Description: " + rs.getString("description"));
             }
             model.put("records", output);
             return "searchResults";
@@ -87,26 +87,29 @@ public class MyController {
     public String insertResults(Data data){
         return "insertResults";
     }*/
-    /*@RequestMapping("/results-insert")
+    @RequestMapping("/results-insert")
     String insertResults(Map<String, Object> model, Data data) {
+        int id=0;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
-                                                                "firstname TEXT NOT NULL"+
-                                                                "lastname TEXT NOT NULL"+
-                                                                "description TEXT NOT NULL)");
-            stmt.executeUpdate("INSERT INTO ticks VALUES ("+data.toString()+")");
-
-            Integer output = data.getId();
-            model.put("back", "/insert");
-            model.put("id", output);
-            return "/results-insert";
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId INT NOT NULL UNIQUE," + 
+                                                                 "firstname VARCHAR(15) NOT NULL,"+
+                                                                 "lastname VARCHAR(15) NOT NULL," +
+                                                                 "description VARCHAR(255) NOT NULL," +
+                                                                 "PRIMARY KEY(caseId));");
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM cases;");
+            while (rs.next()) {
+                id = rs.getInt("total")+1;
+            }
+            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'ab','bc','cd');");
+            model.put("id", id);
+            return "insertResults";
         } catch (Exception e) {
-            model.put("back", "/insert");
+            //model.put("back", "/search");
             model.put("message", e.getMessage());
             return "error";
         }
-    }*/
+    }
 
     @Bean
     public DataSource dataSource() throws SQLException {
