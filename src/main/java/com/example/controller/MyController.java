@@ -68,12 +68,12 @@ public class MyController {
             while (rs.next()) {
                 id = rs.getInt("total")+1;
             }
-            //int id = rs.getInt("total")+1;
             stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'a','b','c');");
             
-            //ResultSet rs1 = stmt.executeQuery("SELECT caseId,firstname FROM cases;");
-            //rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
-            /*output.add("Read from DB: " + rs1.getInt("caseId") + " " + rs1.getString("firstname"));*/
+            rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
+            while (rs.next()) {
+                output.add("Read from DB: " + rs.getInt("caseId") + " " + rs.getString("firstname"));
+            }
             model.put("records", output);
             return "searchResults";
         } catch (Exception e) {
