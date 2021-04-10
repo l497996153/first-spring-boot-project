@@ -1,4 +1,7 @@
-# java-getting-started
+# Demo-database-query
+
+## Deployed on Heroku :rocket:
+http://database-query.herokuapp.com/
 
 ## Running Locally
 
@@ -26,3 +29,5 @@ $ heroku create
 $ git push heroku main
 $ heroku open
 ```
+
+![](https://img.shields.io/github/license/ZJendex/YelpCamp?logo=MIT)
