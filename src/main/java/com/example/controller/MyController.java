@@ -62,7 +62,8 @@ public class MyController {
             if (!rs.first()) {
                 // handle empty set: throw error or return
                 output.add("No such case id");
-            }{
+            }
+            else{
                 while (rs.next()) {
                     output.add("Case ID: " + rs.getInt("caseId"));
                     output.add("Firstname: " + rs.getString("firstname"));
