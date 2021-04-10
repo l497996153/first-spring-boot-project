@@ -8,15 +8,21 @@
 <body>
     <div class = "vertical-center">
         <div class="jumbotron text-center">
-            <div class="container">
+            <div class="form">
                 <h1>Data inserting</h1>
                 <form th:action="@{/insert-results}" th:object="${data}" method="POST">
-                    <label for="first">First Name:</label>
-                    <input type="text" id="firstname" name="firstname" class="black" placeholder="enter firstname..." th:value="*{firstname}" required/></br>
-                    <label for="last">Last Name:</label>
-                    <input type="text" id="lastname" name="lastname" class="black" placeholder="enter lastname..." th:value="*{lastname}" required/></br>
-                    <label for="last">Case Description:</label>
-                    <input type="text" id="description" name="description" class="black" placeholder="enter description..." th:value="*{description}" required/></br>
+                    <div>
+                        <label for="first">First Name:</label>
+                        <input type="text" id="firstname" name="firstname" class="black" placeholder="enter firstname..." th:value="*{firstname}" required/></br>
+                    </div>
+                    <div>    
+                        <label for="last">Last Name:</label>
+                        <input type="text" id="lastname" name="lastname" class="black" placeholder="enter lastname..." th:value="*{lastname}" required/></br>
+                    </div>
+                    <div>
+                        <label for="des" class="description">Case Description:</label>
+                        <textarea type="text" id="description" name="description" class="black" placeholder="enter description..." th:value="*{description}" required/></textarea></textarea></br>
+                    </div>
                     <input type="submit" id="searchBtn" class="btn btn-primary" value="Insert" />
                 </form>
             </div>
