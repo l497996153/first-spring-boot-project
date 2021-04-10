@@ -56,7 +56,7 @@ public class MyController {
 
             ArrayList<String> output = new ArrayList<String>();
             while (rs.next()) {
-                output.add("Read from DB: " + rs.getInt("tick"))
+                output.add("Read from DB: " + rs.getTimestamp("tick"));
             }
             /*stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
                                                                 "firstname TEXT NOT NULL"+
@@ -65,11 +65,10 @@ public class MyController {
             stmt.executeUpdate("INSERT INTO cases(caseId,firstname,lastname,description) VALUES (1,'a','b','c')");
             rs = stmt.executeQuery("SELECT *  FROM case where caseId = 1");
             output.add("Read from DB: " + rs.getTimestamp("caseId") + " " + rs.getString("firstname"));;*/
-            model.put("back", "/search");
             model.put("records", output);
-            return "/results-search";
+            return "results-search";
         } catch (Exception e) {
-            model.put("back", "/search");
+            //model.put("back", "/search");
             model.put("message", e.getMessage());
             return "error";
         }
