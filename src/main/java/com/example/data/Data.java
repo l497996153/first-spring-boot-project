@@ -30,6 +30,6 @@ public class Data {
     }
 
     public String toString(){
-        return this.getFirst() + "," + this.getLast() + "," + this.getDes();
+        return "'"+this.getFirst() + "','" + this.getLast() + "','" + this.getDes()+"'";
     }
 }

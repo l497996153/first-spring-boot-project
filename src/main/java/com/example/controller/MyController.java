@@ -44,7 +44,7 @@ public class MyController {
 
     @RequestMapping("/searchResults")
     String searchResults(Map<String, Object> model) {
-        int id=0;
+        int id=11;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId INT NOT NULL UNIQUE," + 
@@ -88,7 +88,7 @@ public class MyController {
             while (rs.next()) {
                 id = rs.getInt("total")+1;
             }
-            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'ab','bc','cd');");
+            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'"+data.toString());
             model.put("id", id);
             return "insertResults";
         } catch (Exception e) {
