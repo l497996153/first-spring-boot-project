@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -41,6 +42,9 @@ public class MyController {
     @RequestMapping("/insert")
     String insert(Map<String, Object> model) {
         Data data = new Data();
+        data.setFirst("First");
+        data.setLast("Last");
+        data.setDes("Des");
         model.put("Data",data);
         return "insert";
     }
@@ -77,7 +81,7 @@ public class MyController {
     }
 
     @RequestMapping(value = "/insertResults", method = RequestMethod.POST)
-    String insertResults(Map<String, Object> model, Data data) {
+    String insertResults(Map<String, Object> model, @ModelAttribute Data data) {
         int id=0;
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
