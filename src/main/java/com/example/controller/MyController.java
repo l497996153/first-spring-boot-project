@@ -45,7 +45,7 @@ public class MyController {
     String searchResults(Map<String, Object> model, int caseId) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL," + 
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
                                                                 "firstname TEXT NOT NULL"+
                                                                 "lastname TEXT NOT NULL"+
                                                                 "description TEXT NOT NULL)");
@@ -69,13 +69,13 @@ public class MyController {
     String insertResults(Map<String, Object> model, Data data) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL," + 
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
                                                                 "firstname TEXT NOT NULL"+
                                                                 "lastname TEXT NOT NULL"+
                                                                 "description TEXT NOT NULL)");
             stmt.executeUpdate("INSERT INTO ticks VALUES ("+data.toString()+")");
 
-            Long output = data.getId();
+            Integer output = data.getId();
             model.put("back", "/insert");
             model.put("id", output);
             return "insert-results";
