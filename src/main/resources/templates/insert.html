@@ -10,13 +10,13 @@
         <div class="jumbotron text-center">
             <div class="container">
                 <h1>Data inserting</h1>
-                <form th:action="@{/results-insert}" th:object="${results-insert} method="POST">
+                <form action="#" action="/insertResults" th:object="${data} method="POST">
                     <label for="first">First Name:</label>
-                    <input type="text" th:field="*{firstname}" id="first" name="first" class="black" placeholder="enter firstname..." required/></br>
+                    <input type="text" th:field="*{firstname}" id="firstname" name="firstname" class="black" placeholder="enter firstname..." required/></br>
                     <label for="last">Last Name:</label>
-                    <input type="text" th:field="*{lastname}" id="last" name="last" class="black" placeholder="enter lastname..." required/></br>
+                    <input type="text" th:field="*{lastname}" id="lastname" name="lastname" class="black" placeholder="enter lastname..." required/></br>
                     <label for="last">Case Description:</label>
-                    <input type="text" th:field="*{description}" id="des" name="des" class="black" placeholder="enter description..." required/></br>
+                    <input type="text" th:field="*{description}" id="description" name="description" class="black" placeholder="enter description..." required/></br>
                     <input type="submit" id="searchBtn" class="btn btn-primary" value="Insert" />
                 </form>
             </div>

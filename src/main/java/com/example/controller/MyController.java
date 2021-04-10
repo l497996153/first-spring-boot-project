@@ -3,12 +3,16 @@ package com.example.controller;
 import com.example.data.Data;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -46,16 +50,18 @@ public class MyController {
     String searchResults(Map<String, Object> model,  @RequestParam("caseId") Integer caseId) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS case (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
                                                                 "firstname TEXT NOT NULL"+
                                                                 "lastname TEXT NOT NULL"+
                                                                 "description TEXT NOT NULL)");
+            stmt.executeUpdate("INSERT INTO cases(caseId,firstname,lastname,description) VALUES (1,'a','b','c')");
             ResultSet rs = stmt.executeQuery("SELECT *  FROM case where caseId = " + caseId );
 
             ArrayList<String> output = new ArrayList<String>();
             while (rs.next()) {
-                output.add("Read from DB: " + rs.getTimestamp("tick"));
+                output.add("Read from DB: " + rs.getTimestamp("caseId") + " " + rs.getString("firstname"));
             }
+            output.add("Read from DB: " + rs.getInt("tick"));
             model.put("back", "/search");
             model.put("records", output);
             return "/results-search";
@@ -66,7 +72,16 @@ public class MyController {
         }
     }
 
-    @RequestMapping("/results-insert")
+    @GetMapping("/insertResults")
+    public String sendForm(Data data) {
+        return "insertResults";
+    }
+
+    @PostMapping("/insertResults")
+    public String insertResults(Data data){
+        return "insertResults";
+    }
+    /*@RequestMapping("/results-insert")
     String insertResults(Map<String, Object> model, Data data) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
@@ -85,7 +100,7 @@ public class MyController {
             model.put("message", e.getMessage());
             return "error";
         }
-    }
+    }*/
 
     @Bean
     public DataSource dataSource() throws SQLException {
