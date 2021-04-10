@@ -47,7 +47,7 @@ public class MyController {
     }
 
     @RequestMapping("/results-search")
-    String searchResults(Map<String, Object> model,  @RequestParam("caseId") Integer caseId) {
+    String searchResults(Map<String, Object> model) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
@@ -55,7 +55,7 @@ public class MyController {
                                                                 "lastname TEXT NOT NULL"+
                                                                 "description TEXT NOT NULL)");
             stmt.executeUpdate("INSERT INTO cases(caseId,firstname,lastname,description) VALUES (1,'a','b','c')");
-            ResultSet rs = stmt.executeQuery("SELECT *  FROM case where caseId = " + caseId );
+            ResultSet rs = stmt.executeQuery("SELECT *  FROM case where caseId = 1");
 
             ArrayList<String> output = new ArrayList<String>();
             while (rs.next()) {
@@ -72,7 +72,7 @@ public class MyController {
         }
     }
 
-    @GetMapping("/insertResults")
+    /*@GetMapping("/insertResults")
     public String sendForm(Data data) {
         return "insertResults";
     }
@@ -80,7 +80,7 @@ public class MyController {
     @PostMapping("/insertResults")
     public String insertResults(Data data){
         return "insertResults";
-    }
+    }*/
     /*@RequestMapping("/results-insert")
     String insertResults(Map<String, Object> model, Data data) {
         try (Connection connection = dataSource.getConnection()) {
