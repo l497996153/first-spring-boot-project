@@ -64,12 +64,12 @@ public class MyController {
                 output.add("No such case id");
             }
             else{
-                while (rs.next()) {
+                do{
                     output.add("Case ID: " + rs.getInt("caseId"));
                     output.add("Firstname: " + rs.getString("firstname"));
                     output.add("Lastname: " + rs.getString("lastname"));
                     output.add("Description: " + rs.getString("description"));
-                }
+                }while (rs.next());
             }
             model.put("records", output);
             return "searchResults";
