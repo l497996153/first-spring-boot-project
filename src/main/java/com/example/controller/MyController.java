@@ -65,8 +65,8 @@ public class MyController {
                                                                  "PRIMARY KEY(caseId));");
             stmt.executeUpdate("INSERT INTO cases VALUES (1,'a','b','c');");
             rs = stmt.executeQuery("SELECT *  FROM cases where caseId = 1");
-            output.add("Read from DB: " + rs.getInt("caseId") + " " + rs.getString("firstname"));
-            model.put("records", output);
+            /*output.add("Read from DB: " + rs.getInt("caseId") + " " + rs.getString("firstname"));
+            model.put("records", output);*/
             return "searchResults";
         } catch (Exception e) {
             //model.put("back", "/search");
