@@ -39,7 +39,9 @@ public class MyController {
     }
 
     @RequestMapping("/insert")
-    String insert() {
+    String insert(Map<String, Object> model) {
+        Data data = new Data();
+        model.put("Data",data);
         return "insert";
     }
 
