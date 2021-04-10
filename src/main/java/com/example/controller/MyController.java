@@ -50,18 +50,21 @@ public class MyController {
     String searchResults(Map<String, Object> model) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
-                                                                "firstname TEXT NOT NULL"+
-                                                                "lastname TEXT NOT NULL"+
-                                                                "description TEXT NOT NULL)");
-            stmt.executeUpdate("INSERT INTO cases(caseId,firstname,lastname,description) VALUES (1,'a','b','c')");
-            ResultSet rs = stmt.executeQuery("SELECT *  FROM case where caseId = 1");
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+            stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+            ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
 
             ArrayList<String> output = new ArrayList<String>();
             while (rs.next()) {
                 output.add("Read from DB: " + rs.getTimestamp("caseId") + " " + rs.getString("firstname"));
             }
-            output.add("Read from DB: " + rs.getInt("tick"));
+            /*stmt.executeUpdate("CREATE TABLE IF NOT EXISTS cases (caseId SERIAL PRIMARY KEY NOT NULL UNIQUE," + 
+                                                                "firstname TEXT NOT NULL"+
+                                                                "lastname TEXT NOT NULL"+
+                                                                "description TEXT NOT NULL)");
+            stmt.executeUpdate("INSERT INTO cases(caseId,firstname,lastname,description) VALUES (1,'a','b','c')");
+            rs = stmt.executeQuery("SELECT *  FROM case where caseId = 1");
+            output.add("Read from DB: " + rs.getInt("tick"));*/
             model.put("back", "/search");
             model.put("records", output);
             return "/results-search";
