@@ -63,8 +63,10 @@ public class MyController {
                                                                  "lastname VARCHAR(15) NOT NULL," +
                                                                  "description VARCHAR(255) NOT NULL," +
                                                                  "PRIMARY KEY(caseId));");
-            stmt.executeUpdate("INSERT INTO cases VALUES (1,'a','b','c');");
-            int id = 1;
+            rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM cases;");
+            int id = rs.getInt("total")+1;
+            stmt.executeUpdate("INSERT INTO cases VALUES ("+id+",'a','b','c');");
+            
             //ResultSet rs1 = stmt.executeQuery("SELECT caseId,firstname FROM cases;");
             //rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
             /*output.add("Read from DB: " + rs1.getInt("caseId") + " " + rs1.getString("firstname"));*/
