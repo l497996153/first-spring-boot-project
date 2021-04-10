@@ -46,7 +46,7 @@ public class MyController {
         return "insert";
     }
 
-    @RequestMapping("/searchRresults")
+    @RequestMapping("/searchResults")
     String searchResults(Map<String, Object> model) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
@@ -66,7 +66,7 @@ public class MyController {
             rs = stmt.executeQuery("SELECT *  FROM case where caseId = 1");
             output.add("Read from DB: " + rs.getTimestamp("caseId") + " " + rs.getString("firstname"));;*/
             model.put("records", output);
-            return "searchRresults";
+            return "searchResults";
         } catch (Exception e) {
             //model.put("back", "/search");
             model.put("message", e.getMessage());
