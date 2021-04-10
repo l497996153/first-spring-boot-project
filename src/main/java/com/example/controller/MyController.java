@@ -59,17 +59,15 @@ public class MyController {
             ResultSet rs = stmt.executeQuery("SELECT * FROM cases WHERE caseId = "+id+";");
             ArrayList<String> output = new ArrayList<String>();
             
-            if (!rs.first()) {
+            if (!rs.next()) {
                 // handle empty set: throw error or return
                 output.add("No such case id");
             }
             else{
-                do{
-                    output.add("Case ID: " + rs.getInt("caseId"));
-                    output.add("Firstname: " + rs.getString("firstname"));
-                    output.add("Lastname: " + rs.getString("lastname"));
-                    output.add("Description: " + rs.getString("description"));
-                }while (rs.next());
+                output.add("Case ID: " + rs.getInt("caseId"));
+                output.add("Firstname: " + rs.getString("firstname"));
+                output.add("Lastname: " + rs.getString("lastname"));
+                output.add("Description: " + rs.getString("description"));
             }
             model.put("records", output);
             return "searchResults";
